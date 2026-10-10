@@ -1,0 +1,49 @@
+{
+  "project": {
+    "title": "K'Sante in Hallownest",
+    "primary": "hollow-knight",
+    "companion": "league-of-legends",
+    "loader": "hk-modding-api",
+    "mode": "solo",
+    "status": "design only, nothing built or tested yet"
+  },
+  "forms": [
+    {"id": "tank", "name": "Tank-Form", "moveSpeed": 0.8, "nailDamageMult": 1.0, "maxHealthBonus": 2, "blockEnabled": true, "dashEnabled": false, "sprite": "ksante_tank", "audioSet": "tank_sfx", "ref_abilities": ["slash_q", "shield_block", "shield_bash"]},
+    {"id": "unleashed", "name": "Ultimate-Form", "moveSpeed": 1.4, "nailDamageMult": 1.6, "maxHealthBonus": 0, "blockEnabled": false, "dashEnabled": true, "sprite": "ksante_unleashed", "audioSet": "ult_sfx", "ref_abilities": ["slash_q", "dash_e", "combo_slash"]}
+  ],
+  "abilities": [
+    {"id": "slash_q", "name": "Klingenstoß", "key": "attack", "damage": 5, "cooldownSec": 0.4, "rageGain": 4, "ref_audio": "q_cast"},
+    {"id": "shield_block", "name": "Schildblock", "key": "focus", "damage": 0, "cooldownSec": 0.8, "rageGain": 10, "ref_audio": "block_hit"},
+    {"id": "shield_bash", "name": "Schildstoß", "key": "attack+up", "damage": 8, "cooldownSec": 1.5, "rageGain": 6, "ref_audio": "bash_hit"},
+    {"id": "dash_e", "name": "Ansturm", "key": "dash", "damage": 6, "cooldownSec": 0.6, "rageGain": 0, "ref_audio": "e_dash"},
+    {"id": "combo_slash", "name": "Wutkombo", "key": "attack", "damage": 7, "cooldownSec": 0.25, "rageGain": 0, "ref_audio": "ult_slash"}
+  ],
+  "rageBar": [
+    {"id": "rage", "max": 100, "decayPerSecInTank": 0, "drainPerSecInUnleashed": 8, "transitionAt": 100, "revertAt": 0, "ref_forms": ["tank", "unleashed"], "ref_audio": "ult_activate"}
+  ],
+  "audio": [
+    {"id": "q_cast", "source": "league-of-legends", "file": null, "verified": false},
+    {"id": "block_hit", "source": "league-of-legends", "file": null, "verified": false},
+    {"id": "bash_hit", "source": "league-of-legends", "file": null, "verified": false},
+    {"id": "e_dash", "source": "league-of-legends", "file": null, "verified": false},
+    {"id": "ult_slash", "source": "league-of-legends", "file": null, "verified": false},
+    {"id": "ult_activate", "source": "league-of-legends", "file": null, "verified": false}
+  ],
+  "sprites": [
+    {"id": "ksante_tank", "frames": ["idle", "walk", "attack", "block", "hurt"], "origin": "original 2D art, Hollow Knight style", "done": false},
+    {"id": "ksante_unleashed", "frames": ["idle", "run", "attack", "dash", "hurt"], "origin": "original 2D art, Hollow Knight style", "done": false}
+  ],
+  "hooks": [
+    {"id": "swap_sprite", "target": "HeroController sprite/animator", "verified": false},
+    {"id": "override_attack", "target": "HeroController attack handling", "verified": false},
+    {"id": "block_damage", "target": "HeroController.TakeDamage", "verified": false},
+    {"id": "hud_rage_bar", "target": "HUD overlay", "verified": false}
+  ],
+  "recipe_draft": {
+    "components": [
+      {"game": "hollow-knight", "role": "primary", "loader": "hk-modding-api", "mod": "KSanteMod.dll"},
+      {"game": "league-of-legends", "role": "companion", "mapping": "{game:league-of-legends} used to read audio"}
+    ],
+    "multiplayer": null
+  }
+}
